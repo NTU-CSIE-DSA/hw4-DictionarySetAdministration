@@ -1,0 +1,30 @@
+{
+    "global_validators": ["validator.cpp 6"],
+    "subtasks": {
+        "s0": {
+            "index": 0,
+            "score": 0,
+            "validators": ["validator.cpp 6"]
+        },
+        "s1": {
+            "index": 1,
+            "score": 10,
+            "validators": ["validator.cpp 3"]
+        },
+        "s2": {
+            "index": 2,
+            "score": 25,
+            "validators": ["validator.cpp 4"]
+        },
+        "s3": {
+            "index": 3,
+            "score": 25,
+            "validators": ["validator.cpp 5"]
+        },
+        "s4": {
+            "index": 5,
+            "score": 40,
+            "validators": ["validator.cpp 6"]
+        }
+    }
+}

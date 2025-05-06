@@ -1,0 +1,120 @@
+@subtask s0
+manual sample1.in
+manual sample2.in
+manual sample3.in
+
+@subtask s1
+manual sample1.in
+s1gen 2 random 10000 30 5 26
+s1gen 3 random 10000 30 6 26
+s1gen 4 random 10000 30 7 26
+s1gen 5 random 10000 30 8 26
+s1gen 6 random 1000 300 5 26
+s1gen 7 random 1000 300 6 26
+s1gen 8 random 1000 300 7 26
+s1gen 9 random 1000 300 8 26
+s1gen 10 random 300 1000 5 26
+s1gen 11 random 300 1000 6 26
+s1gen 12 random 300 1000 7 26
+s1gen 13 random 300 1000 8 26
+s1gen 14 random 10000 30 6 4
+s1gen 15 random 10000 30 7 4
+s1gen 16 random 1000 300 6 4
+s1gen 17 random 1000 300 7 4
+s1gen 18 random 300 1000 6 4
+s1gen 19 random 300 1000 7 4
+s1gen 20 tle 10000 30 9 26
+s1gen 21 tle 10000 30 8 26
+s1gen 22 tle 1000 300 9 26
+s1gen 23 tle 1000 300 8 26 
+
+@subtask s2
+@include s1
+s2gen 1 random 10000 30 5 26
+s2gen 2 random 10000 30 6 26
+s2gen 3 random 10000 30 7 26
+s2gen 4 random 10000 30 8 26
+s2gen 5 random 10000 30 9 26
+s2gen 6 random 1000 300 5 26
+s2gen 7 random 1000 300 6 26
+s2gen 8 random 1000 300 7 26
+s2gen 9 random 1000 300 8 26
+s2gen 10 random 300 1000 5 26
+s2gen 11 random 300 1000 6 26
+s2gen 12 random 300 1000 7 26
+s2gen 13 random 300 1000 8 26
+s2gen 14 random 10000 30 6 4
+s2gen 15 random 10000 30 7 4
+s2gen 16 random 1000 300 6 4
+s2gen 17 random 1000 300 7 4
+s2gen 18 random 300 1000 6 4
+s2gen 19 random 300 1000 7 4
+s2gen 20 tle 10000 30 9 26
+s2gen 21 tle 10000 30 8 26
+s2gen 22 tle 1000 300 9 26
+s2gen 23 tle 1000 300 8 26 
+
+@subtask s3
+@include s2
+s3gen 1 random 10000 30 5 26
+s3gen 2 random 10000 30 6 26
+s3gen 3 random 10000 30 7 26
+s3gen 4 random 10000 30 8 26
+s3gen 5 random 10000 30 9 26
+s3gen 6 random 1000 300 5 26
+s3gen 7 random 1000 300 6 26
+s3gen 8 random 1000 300 7 26
+s3gen 9 random 1000 300 8 26
+s3gen 10 random 300 1000 5 26
+s3gen 11 random 300 1000 6 26
+s3gen 12 random 300 1000 7 26
+s3gen 13 random 300 1000 8 26
+s3gen 14 random 10000 30 6 4
+s3gen 15 random 10000 30 7 4
+s3gen 16 random 1000 300 6 4
+s3gen 17 random 1000 300 7 4
+s3gen 18 random 300 1000 6 4
+s3gen 19 random 300 1000 7 4
+s3gen 20 tle 10000 30 9 26
+s3gen 21 tle 10000 30 8 26
+s3gen 22 tle 1000 300 9 26
+s3gen 23 tle 1000 300 8 26 
+s3gen 24 tle 10000 30 9 26
+s3gen 25 tle 10000 30 8 26
+s3gen 26 tle 300 1000 9 26
+s3gen 27 tle 300 1000 8 26
+
+@subtask s4
+@include s0
+@include s3
+s4gen 1 random 10000 30 5 26
+s4gen 2 random 10000 30 6 26
+s4gen 3 random 10000 30 7 26
+s4gen 4 random 10000 30 8 26
+s4gen 5 random 10000 30 9 26
+s4gen 6 random 1000 300 5 26
+s4gen 7 random 1000 300 6 26
+s4gen 8 random 1000 300 7 26
+s4gen 9 random 1000 300 8 26
+s4gen 10 random 300 1000 5 26
+s4gen 11 random 300 1000 6 26
+s4gen 12 random 300 1000 7 26
+s4gen 13 random 300 1000 8 26
+s4gen 14 random 10000 30 6 4
+s4gen 15 random 10000 30 7 4
+s4gen 16 random 1000 300 6 4
+s4gen 17 random 1000 300 7 4
+s4gen 18 random 300 1000 6 4
+s4gen 19 random 300 1000 7 4
+s4gen 20 tle 10000 30 9 26
+s4gen 21 tle 10000 30 8 26
+s4gen 22 tle 1000 300 9 26
+s4gen 23 tle 1000 300 8 26 
+s4gen 24 tle 10000 30 9 26
+s4gen 25 tle 10000 30 8 26
+s4gen 26 gentree 10000 30 7 5 a
+s4gen 27 gentree 10000 30 7 26 abcde
+s4gen 28 gentree 1000 300 7 5 aaaaaaaaaa
+s4gen 29 gentree 1000 300 7 26 abcdefghijklmnopqrstuvwxyz
+s4gen 30 gentree 10000 30 7 3 aaa
+s4gen 31 gentree 1000 300 7 2 b
