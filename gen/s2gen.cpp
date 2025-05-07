@@ -92,16 +92,17 @@ int main(int argc, char *argv[])
 					prefix_vec[id] = prefix_vec[id].substr(0, (int)prefix_vec[id].size() - 1);
 			}
 			else {
-				int ans = rnd.next(0, 1), id = rnd.next(0, pv_sz - 1);
+				int ans = rnd.next(0, 2), id = rnd.next(0, pv_sz - 1);
 				string ask = "";
 				if (ans == 1)
 				{
 					ask = inserted[rnd.next(0, insert_sz - 1)];
 				}
-				else
+				else if(ans==2)
 				{
 					ask = prefix_vec[id];
 				}
+				else ask=genstring(len, alphabet_size);
 				cout << "4 " << ask << "\n";
 			}
 		}

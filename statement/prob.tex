@@ -70,8 +70,8 @@ In this problem, we ask you to administrate an initially empty dictionary set us
     \item \textbf{Insert} operation: Insert the query string into the dictionary set.
     \item \textbf{Check} operation: Check if the query string is in the dictionary set or not.
     \item \textbf{Prefix\_Search} operation: Find the number of strings in the dictionary set that have the query string as a prefix.
-    \item \textbf{LCP} operation: Find the string in the dictionary set that has the \textbf{longest common prefix} with the query string. If there are multiple answers, return the string with the smallest lexicographical order.
-    \item \textbf{Score} operation: Find the score of the query string, where the score is defined as the total length of the common prefix of all strings in the dictionary set and the query string.
+    \item \textbf{LCP} operation: Find the string in the dictionary set that has the \textbf{longest common prefix} with the query string. If there are multiple answers, return the string with the smallest lexicographical order. If none of the strings in the dictionary set share a common prefix with the query string, return the string with the smallest lexicographical order.
+    \item \textbf{Score} operation: Calculate the score of the query string, where the score is defined as the sum of the lengths of the common prefixes between the query string and each string in the dictionary set.
     \item \textbf{Compress} operation: Compress the whole dictionary set by replacing each string in the dictionary set with its non-empty prefix such that all new strings are still unique. Return the smallest possible total length of the new strings. For example, assume that there are four strings ``hsinmu'', ``hsin'', ``hsuantien'', and ``hello'' in the dictionary set. After the Compress operation, ``hsinmu'' can be compressed to ``hsi'', ``hsin'' can be compressed to ``hs'', ``hsuantien'' can be compressed to ``h'', ``hello'' can be compressed to ``he''. The four compressed strings will be ``hsi'', ``hs'', ``h'', and ``he'', which are all unique, and the total length is 8. The Compress operation will only be called once and always be the last one, i.e., only the last operation will possibly be Compress.
 
 \end{itemize}
@@ -114,19 +114,19 @@ The first line contains one integer $Q$, representing the total number of operat
 \subsubsection{Subtask 1 (10 pts)}
 
 \begin{itemize}
-    \item Only \textbf{Insert}, \textbf{Check}, and \textbf{Prefix\_Search} operations are implemented.
+    \item Only includes operation 1, 2, 3 (\textbf{Insert}, \textbf{Check}, \textbf{Prefix\_Search}).
 \end{itemize}
 
 \subsubsection{Subtask 2 (25 pts)}
 
 \begin{itemize}
-    \item Only \textbf{Insert}, \textbf{Check}, \textbf{Prefix\_Search}, and \textbf{LCP} operations are implemented.
+    \item Only includes operation 1, 2, 3, 4 (\textbf{Insert}, \textbf{Check}, \textbf{Prefix\_Search}, \textbf{LCP}).
 \end{itemize}
 
 \subsubsection{Subtask 3 (25 pts)}
 
 \begin{itemize}
-    \item Only \textbf{Insert}, \textbf{Check}, \textbf{Prefix\_Search}, \textbf{LCP}, and \textbf{Score} operations are implemented.
+    \item Only includes operation 1, 2, 3, 4, 5 (\textbf{Insert}, \textbf{Check}, \textbf{Prefix\_Search}, \textbf{LCP},  \textbf{Score}).
 \end{itemize}
 
 \subsubsection{Subtask 4 (40 pts)}
