@@ -27,6 +27,7 @@ s1gen 20 tle 10000 30 9 26
 s1gen 21 tle 10000 30 8 26
 s1gen 22 tle 1000 300 9 26
 s1gen 23 tle 1000 300 8 26 
+s1gen 24 random 30 10000 6 26
 
 @subtask s2
 @include s1
@@ -53,6 +54,7 @@ s2gen 20 tle 10000 30 9 26
 s2gen 21 tle 10000 30 8 26
 s2gen 22 tle 1000 300 9 26
 s2gen 23 tle 1000 300 8 26 
+s2gen 24 random 30 10000 6 26
 
 @subtask s3
 @include s2
@@ -83,6 +85,7 @@ s3gen 24 tle 10000 30 9 26
 s3gen 25 tle 10000 30 8 26
 s3gen 26 tle 300 1000 9 26
 s3gen 27 tle 300 1000 8 26
+s3gen 28 random 30 10000 6 26
 
 @subtask s4
 @include s0
@@ -118,3 +121,4 @@ s4gen 28 gentree 1000 300 7 5 aaaaaaaaaa
 s4gen 29 gentree 1000 300 7 26 abcdefghijklmnopqrstuvwxyz
 s4gen 30 gentree 10000 30 7 3 aaa
 s4gen 31 gentree 1000 300 7 2 b
+s4gen 32 random 30 10000 6 26
