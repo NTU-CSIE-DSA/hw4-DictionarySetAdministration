@@ -8,11 +8,11 @@ Please refer to [NTU COOL](https://cool.ntu.edu.tw/courses/47166).
 
 - Only **Insert**, **Check**, and **Prefix_Search** operations are implemented.
 
-### Subtasks 2 (20 pts)
+### Subtasks 2 (25 pts)
 
 - Only **Insert**, **Check**, **Prefix_Search**, and **LCP** operations are implemented.
 
-### Subtasks 3 (30 pts)
+### Subtasks 3 (25 pts)
 
 - Only **Insert**, **Check**, **Prefix_Search**, **LCP**, and **Score** operations are implemented.
  
