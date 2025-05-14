@@ -1,13 +1,14 @@
-
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{0}
+\setcounter{figure}{0}
+\setcounter{chapter}{3}
 \setlist{noitemsep, topsep=0pt}
 
 \subsection{Problem Description}\label{problem-description}
 
-We have learned some string-matching algorithms such as Rabin-Karp and KMP in class, which efficiently find substrings within larger strings. However, these algorithms are not designed for scenarios where we need to efficiently store and retrieve multiple strings based on their shared prefixes. For example, when implementing an autocomplete system, searching for strings with a given prefix or organizing a dictionary for efficient lookups becomes crucial. Such tasks require data structures specifically designed for prefix-based operations.
+We have learned some string-matching algorithms such as Rabin-Karp and KMP in class, which efficiently find substrings within larger strings. However, these algorithms are not designed for scenarios where we need to efficiently store and retrieve multiple strings with their common prefixes. For example, when implementing an autocomplete system, searching for strings with a given prefix or organizing a dictionary for efficient lookups becomes crucial. Such tasks require data structures specifically designed for prefix-based operations.
 
-In this problem, we suggest you learn a new data structure called \textbf{Trie} that can address prefix searching more efficiently. The following description of the \textbf{Trie} might be helpful for you.
+In this problem, we suggest you learn a new data structure called \textbf{Trie} to address prefix searching more efficiently. The following description of \textbf{Trie} might be helpful for you.
 
 \begin{tcolorbox}[colframe = blue, title={Reference Reading}, colback = white, enhanced, breakable, 
     skin first=enhanced,
@@ -15,64 +16,95 @@ In this problem, we suggest you learn a new data structure called \textbf{Trie} 
     skin last=enhanced,
     before upper={\parindent15pt}]
 
-\noindent\textbf{Definitions}
-
-A Trie (pronounced as ``try'') is a specialized tree-based data structure used for storing and retrieving strings, typically in applications where prefix-based operations are crucial. Tries are particularly efficient for tasks such as autocomplete systems, spell checkers, or dictionary management.
-
-Let $T$ be a Trie storing a set of strings $S = \{s_1, s_2, \ldots, s_n\}$, where each string is composed of characters from a fixed alphabet $\Sigma$. 
+%\noindent
+\textbf{Definitions.}
+Trie is a specialized tree-based data structure used for storing and retrieving strings, typically in applications where prefix-based operations are crucial. Tries are particularly efficient for tasks such as autocomplete systems, spell checkers, or dictionary management. Let $T$ be a Trie storing a \textit{set} of strings $S = \{s_1, s_2, \ldots, s_n\}$, where each string is composed of characters from a fixed alphabet $\Sigma$. 
 \begin{itemize}
-    \item Each node in the Trie represents a character of the strings in $S$.
-    \item Edges between nodes indicate the sequence of characters in the strings.
-    \item Strings are stored implicitly through the paths from the root node to the leaf nodes.
+    \item Each edge represents a character in $\Sigma$.
+    \item The root node represents a null string.
+    \item Each node in the Trie represents a prefix of some strings in $S$. The prefix string can be obtained by concatenating all characters represented by the edges in the path from the root to the node.
+    %\item Edges between nodes indicate the sequence of characters in the strings.
+    %\item Strings are encoded through the paths from the root node to the leaf nodes, where a path represents the sequence of characters that form a string.
+    \item Each string $s \in S$ can be presented by a leaf node in the Trie. Similarly, concatenating the characters represented by the edges forming the path from the root to the leaf node produces the string $s$.
+    
 \end{itemize}
 
-For example, if $S = \{\text{``cat''}, \text{``car''}, \text{``cart''}, \text{``dog''}\}$, the Trie will branch at shared prefixes like ``ca'' and ``car''.
+Figure~\ref{fig:3-1} presents an example of Trie. Note that it branches at the common prefix of those in $S$, i.e., ``ca''.
+%For example, if $S = \{\text{``cat''}, \text{``car''}, \text{``cart''}, \text{``dog''}\}$, the Trie will branch at shared prefixes like ``ca'' and ``car''.
 
-(figure to be inserted)
+%\begin{figure}[h]
+    \begin{center}
+    \includegraphics[width=0.6\linewidth]{3-trie-demo.png}
+    \captionof{figure}{A Trie representing $S=\{\text{``cat''}, \text{``car''}, \text{``cart''}, \text{``dog''}\}$}
+    \label{fig:3-1}
+    \end{center}
+%\end{figure}
 
-\noindent\textbf{Key properties of a Trie}
+\vspace{10pt}
+\textbf{Key properties of a Trie.}
 
 \begin{itemize}
-    \item \textbf{Prefix representation:} Every prefix of a string in $S$ is represented in $T$ by the path from the root to the corresponding node.
-    \item \textbf{Search efficiency:} Finding a string or prefix of length $m$ in a Trie takes $O(m)$ time, regardless of the number of strings stored.
-    \item \textbf{Space efficiency:} Shared prefixes among strings are stored only once.
+    \item \textbf{Prefix representation:} 
+    Every prefix of a string $s \in S$ can be presented by a node in $T$. 
+    %Every prefix of a string in $S$ is represented in $T$ by the path from the root to the corresponding node.
+    \item \textbf{Search efficiency:} Finding a string or prefix of length $m$ in a Trie takes $O(m)$ time, regardless of the number of strings stored in the Trie.
+    \item \textbf{Space efficiency:} Common prefixes among the strings in $S$ are stored only once.
 \end{itemize}
 
-\noindent\textbf{Implementation}
+\textbf{Implementation.}
+A Trie is constructed by inserting a string one character at a time. 
+Each node stores the pointers to the child nodes, each of which corresponds to adding one more character drawn from $\Sigma$. In addition, a boolean flag is stored at each node, indicating whether the current node corresponds to a string $s \in S$.
 
-A Trie is constructed by inserting strings one character at a time. Each node stores a mapping of child nodes for each character in $\Sigma$, and a boolean flag indicating whether the current node marks the end of a valid string. 
+%Each node stores a mapping of child nodes for each character in $\Sigma$, and a boolean flag indicating whether the current node marks the end of a valid string. 
 
-To insert a string $s$ into the Trie:
+To \textit{insert} a string $s$ into Trie $T$:
 \begin{enumerate}[label=(\arabic*)]
     \item Start from the root node.
     \item For each character $c$ in $s$: If $c$ does not exist as a child of the current node, create a new node for $c$.
     \item Move to the child node corresponding to $c$.
-    \item After processing all characters, mark the final node as the end of a string.
+    \item After processing all characters, mark the final node to indicate that the node corresponds to a string in $S$.
 \end{enumerate}
 
-To search for a string $s$ in the Trie:
+To \textit{search} for a string $s$ in the Trie:
 \begin{enumerate}[label=(\arabic*)]
     \item Start from the root node.
-    \item Traverse the nodes corresponding to the characters in $s$.
-    \item If all characters are found and the final node is marked as the end of a string, $s$ exists in the Trie.
+    \item Take the next character $c$ in $s$. Traverse to the child node corresponding to $c$. If $c$ cannot be found on an edge from the current node, stop the current search and return ``not found.''%Traverse the nodes corresponding to the characters in $s$.
+    \item Repeat the previous step until all characters in $s$ are processed. If all characters are found and the final node is marked as the end of a string, $s$ exists in the Trie.
 \end{enumerate}
 
-For prefix-based operations, such as finding all strings with a given prefix $p$:
+For \textit{prefix operations}, such as finding all strings of a given prefix $p$:
 \begin{enumerate}[label=(\arabic*)]
-    \item Traverse the Trie to find the node corresponding to the last character of $p$.
+    \item Traverse the Trie to find the node corresponding to $p$ using the above \textit{search} algorithm.
     \item Perform a depth-first search (DFS) from this node to collect all strings that share the prefix $p$.
 \end{enumerate}
 
 \end{tcolorbox}
 
-In this problem, we ask you to administrate an initially empty dictionary set using Trie to support the following six operations:
+In this problem, we ask you to implement a dictionary set to support the following six operations. The dictionary set should be implemented with Trie and was initially empty. The six operations are:
 \begin{itemize}
     \item \textbf{Insert} operation: Insert the query string into the dictionary set.
-    \item \textbf{Check} operation: Check if the query string is in the dictionary set or not.
-    \item \textbf{Prefix\_Search} operation: Find the number of strings in the dictionary set that have the query string as a prefix.
-    \item \textbf{LCP} operation: Find the string in the dictionary set that has the \textbf{longest common prefix} with the query string. If there are multiple answers, return the string with the smallest lexicographical order. If none of the strings in the dictionary set share a common prefix with the query string, return the string with the smallest lexicographical order.
-    \item \textbf{Score} operation: Calculate the score of the query string, where the score is defined as the sum of the lengths of the common prefixes between the query string and each string in the dictionary set.
-    \item \textbf{Compress} operation: Compress the whole dictionary set by replacing each string in the dictionary set with its non-empty prefix such that all new strings are still unique. Return the smallest possible total length of the new strings. For example, assume that there are four strings ``hsinmu'', ``hsin'', ``hsuantien'', and ``hello'' in the dictionary set. After the Compress operation, ``hsinmu'' can be compressed to ``hsi'', ``hsin'' can be compressed to ``hs'', ``hsuantien'' can be compressed to ``h'', ``hello'' can be compressed to ``he''. The four compressed strings will be ``hsi'', ``hs'', ``h'', and ``he'', which are all unique, and the total length is 8. The Compress operation will only be called once and always be the last one, i.e., only the last operation will possibly be Compress.
+    \item \textbf{Check} operation: Check whether the query string is in the dictionary set.
+    \item \textbf{Prefix\_Search} operation: 
+    For a given prefix string $q$, we have $P=\{p:\; q \sqsubset p \;\wedge\; p \in S\}$ representing all strings in the dictionary set $S$ such that $q$ is a prefix of them. The Prefix\_Search operation asks you to return the number of these strings, i.e., $|P|$.
+    
+    %Find the number of strings in the dictionary set with the query string as a prefix.
+    \item \textbf{LCP} operation: 
+    Assume that the query string $q$ has the longest common prefix with some strings in the dictionary set $S$. Let us denote the set $S'$ to have those strings. Note that in the case that the longest common prefix is an empty string, $S'=S$. The LCP operation returns the first string of $S'$ in lexicographical order.
+    %Find the string in the dictionary set that has the \textbf{longest common prefix} with the query string. When there are multiple answers, return the first of those strings in lexicographical order. If none of the strings in the dictionary set share a common prefix with the query string, return the string with the smallest lexicographical order in the dictionary set.
+    \item \textbf{Score} operation:
+    The score of the query string $q$ to the dictionary set $S$ is given by 
+    \begin{equation}
+        \mathcal{S}(q,S)= \sum_{t\in C} |t|, C = \{t: \; t \sqsubset q \;\wedge\; t \sqsubset s \;\wedge\; s \in S\}
+    \end{equation}
+    where $C$ is the set of common prefixes of $q$ and any $s \in S$. The score $\mathcal{S}(q,S)$ is the summation of the lengths of all strings in $C$. The LCP operation asks you to calculate this score with a query string $s$ and the dictionary set $S$.
+    
+    %Calculate the score of the query string, where the score is defined as the sum of the lengths of the common prefixes between the query string and each string in the dictionary set.
+    \item \textbf{Compress} operation: Compress the entire dictionary set by replacing each string in the dictionary set with one of its non-empty prefixes such that all new strings are still unique. 
+    Let $S_c$ denote the dictionary set after compression. Find a way to minimize the total length of compressed strings $L=\sum_{s\in S_c} |s| $ and return the value of the minimal $L$.
+    %Return the smallest possible total length of the new strings. 
+    For example, assume that there are four strings ``hsinmu'', ``hsin'', ``hsuantien'', and ``hello'' in the dictionary set. After the Compress operation, ``hsinmu'' can be compressed to ``hsi'', ``hsin'' can be compressed to ``hs'', ``hsuantien'' can be compressed to ``h'', ``hello'' can be compressed to ``he''. The four compressed strings cah be ``hsi'', ``hs'', ``h'', and ``he'', which are all unique, and $L=8$. 
+    The Compress operation can only be the last in the sequence. 
+    %The Compress operation will only be called once and always be the last operation, i.e., only the last operation can be Compress.
 
 \end{itemize}
 
@@ -83,8 +115,8 @@ The first line contains one integer $Q$, representing the total number of operat
     \item \texttt{1 str}: Indicating an \textbf{Insert} operation with string \texttt{str}.
     \item \texttt{2 str}: Indicating a \textbf{Check} operation with string \texttt{str}.
     \item \texttt{3 prefix}: Indicating a \textbf{Prefix\_Search} operation with string \texttt{prefix}.
-    \item \texttt{4 str}: Indicating a \textbf{LCP} operation with string \texttt{str}.
-    \item \texttt{5 str}: Indicating a \textbf{Score} operation with string \texttt{str}.
+    \item \texttt{4 str}: Indicating a \textbf{LCP} operation with query string \texttt{str}.
+    \item \texttt{5 str}: Indicating a \textbf{Score} operation with query string \texttt{str}.
     \item \texttt{6}: Indicating a \textbf{Compress} operation.
 \end{itemize}
 
@@ -93,9 +125,9 @@ The first line contains one integer $Q$, representing the total number of operat
 \begin{itemize}
     \item For each \textbf{Check} operation, print \texttt{YES} in uppercase English letters in a single line if \texttt{str} is in the dictionary set. Otherwise, print \texttt{NO}.
     \item For each \textbf{Prefix\_Search} operation, print a non-negative integer in a single line representing the number of strings in the dictionary set that have \texttt{str} as a prefix.
-    \item For each \textbf{LCP} operation, print a string in a single line representing the string in the dictionary set that has the \textbf{longest common prefix} with \texttt{str}.
+    \item For each \textbf{LCP} operation, print a string in a single line representing the first string in the dictionary set that has the \textbf{longest common prefix} with \texttt{str} in lexicographical order.
     \item For each \textbf{Score} operation, print a non-negative integer in a single line representing the score of \texttt{str}.
-    \item For each \textbf{Compress} operation, print a non-negative integer in a single line representing the smallest possible total length of the new strings.
+    \item For each \textbf{Compress} operation, print a non-negative integer in a single line representing the smallest possible total length of the compressed dictionary set.
 \end{itemize}
 
 \subsection{Constraints}
@@ -135,8 +167,6 @@ The first line contains one integer $Q$, representing the total number of operat
     \item Includes all operations.
 \end{itemize}
 
-\newpage
-
 \subsection{Sample Testcases}
 
 \begin{multicols}{2}
@@ -164,6 +194,8 @@ NO
 
 \end{verbatim}
 \end{multicols}
+
+\newpage
 
 \begin{multicols}{2}
 \subsubsection{Sample Input 2}
@@ -201,8 +233,6 @@ hsuantien
     \item \texttt{5 hell} will score 1 on \texttt{hsinmu}, score 1 on \texttt{hsin}, score 1 on \texttt{hsuantien}, and score 4 on \texttt{hello}. Hence, the total score is 7.
     \item After the \textbf{Compress} operation, \texttt{hsinmu} can be compressed to \texttt{hsi}, \texttt{hsin} can be compressed to \texttt{hs}, \texttt{hsuantien} can be compressed to \texttt{h}, \texttt{hello} can be compressed to \texttt{he}. The four compressed strings will be \texttt{hsi}, \texttt{hs}, \texttt{h}, and \texttt{he}, which are all unique, and the total length is 8. It can be proved that there isn't any compression method to have a shorter total length.
 \end{itemize}
-
-\newpage
 
 \begin{multicols}{2}
 \subsubsection{Sample Input 3}
