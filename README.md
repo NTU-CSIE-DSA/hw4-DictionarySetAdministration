@@ -7,7 +7,7 @@
     * If we visit an occupied node, pass its depth and its children's depths to the parent.
     * If we visit a non-occupied node, which can be compressed into another deeper node, find the largest depth among its children and modify it to the current depth.
 The final answer will be the sum of the depths at the root node.
-This method can be implemented using a max-heap, so the total time complexity of the compression operation will be $O\left(\sum |S| \log \sum |S|\right)$.
+This method can be implemented using a max-heap, so the total time complexity of the compression operation will be $O(\sum|S|\log\sum|S|)$.
 
 Sample solution:
 
