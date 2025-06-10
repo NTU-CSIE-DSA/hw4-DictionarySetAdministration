@@ -3,11 +3,11 @@
 * Subtask 1: Refer to problem statement.
 * Subtask 2: While performing `dfs`, walk through the smallest lexicographical path after the first character fails to match the query string. Notice that if the last node matching the prefix of the query string is also a string in the dictionary set, it should be immediately returned.
 * Subtask 3: While performing `prefix_search()`, you can maintain the counts for every prefix string in $O(1)$. While performing `score()`, you only need to update the score by adding depth $\cdot$ diff when the counts of prefix strings differ.
-* Subtask 4: I apologize for underestimating the complexity of this subtask. Here, we first define an "**occupied**" node as the ending character of one of the strings in the dictionary set. A "compress" operation for a string involves moving an occupied node to a non-occupied node along its path to the root. Thus, when traversing the Trie bottom-up:
+* Subtask 4: I apologize for underestimating the difficulty of this subtask. Here, we first define an "**occupied**" node as the ending character of one of the strings in the dictionary set. A "compress" operation for a string involves moving an occupied node to a non-occupied node along its path to the root. Thus, when traversing the Trie bottom-up:
     * If we visit an occupied node, pass its depth and its children's depths to the parent.
-    * If we visit a non-occupied node, which can be compressed into another deeper node, find the largest depth among its children and modify it to the current depth.
-The final answer will be the sum of the depths at the root node.
-This method can be implemented using a max-heap, so the total time complexity of the compression operation will be $O(\sum|S|\log\sum|S|)$.
+    * If we visit a non-occupied node, which can be compressed from another deeper node, find the largest depth among its children and modify it to the current depth.
+
+The final answer will be the sum of the depths gathered at the root node. This method can be implemented using a max-heap, so the total time complexity of the `compress()` operation will be $O(\sum|S|\log\sum|S|)$.
 
 Sample solution:
 
